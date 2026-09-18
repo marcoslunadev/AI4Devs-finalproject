@@ -60,7 +60,7 @@ Ayúdame a:
 
 **Prompt 2 (Instrucciones de instalación y entorno reproducible con Docker):**
 ```text
-Genera la sección de instrucciones de instalación en local para el proyecto AIFinOps. Debe contemplar el levantamiento de la base de datos PostgreSQL 16 con Docker Compose (`docker compose up -d`), ejecución de migraciones con Prisma (`npx prisma migrate dev`), ejecución de semillas de datos realistas (`seed.ts`) y comandos de inicio para frontend (Vite) y backend (Express).
+Genera la sección de instrucciones de instalación en local para el proyecto AIFindOps. Debe contemplar el levantamiento de la base de datos PostgreSQL 16 con Docker Compose (`docker compose up -d`), ejecución de migraciones con Prisma (`npx prisma migrate dev`), ejecución de semillas de datos realistas (`seed.ts`) y comandos de inicio para frontend (Vite) y backend (Express).
 ```
 
 ---
@@ -71,7 +71,7 @@ Genera la sección de instrucciones de instalación en local para el proyecto AI
 
 **Prompt 1 (Diseño de arquitectura y diagrama Mermaid):**
 ```text
-Diseña el diagrama de arquitectura del sistema para AIFinOps utilizando sintaxis Mermaid. Debe reflejar:
+Diseña el diagrama de arquitectura del sistema para AIFindOps utilizando sintaxis Mermaid. Debe reflejar:
 - Capa de presentación (React 18 + Vite + TypeScript + TailwindCSS + Recharts).
 - Capa de seguridad y middleware (JWT Auth, RBAC, Helmet, CORS, Rate Limiting).
 - Capa de API backend (Node.js + Express + TypeScript con Clean Architecture: Controllers, Services, Repositories).
@@ -84,14 +84,14 @@ Justifica la elección de este patrón arquitectónico y detalla los beneficios 
 
 **Prompt 1:**
 ```text
-Describe detalladamente los 5 componentes principales de la arquitectura de AIFinOps: Frontend Client, API Gateway & Router, Ingestion Engine & Parser, Aggregation & Metrics Engine, y Persistence Layer (Prisma + PostgreSQL). Explica la responsabilidad de cada uno y su interacción en el flujo de datos.
+Describe detalladamente los 5 componentes principales de la arquitectura de AIFindOps: Frontend Client, API Gateway & Router, Ingestion Engine & Parser, Aggregation & Metrics Engine, y Persistence Layer (Prisma + PostgreSQL). Explica la responsabilidad de cada uno y su interacción en el flujo de datos.
 ```
 
 ### **2.3. Descripción de alto nivel del proyecto y estructura de ficheros**
 
 **Prompt 1:**
 ```text
-Define la estructura de directorios y ficheros del proyecto AIFinOps bajo un enfoque de monorepo modular y Clean Architecture (/docker, /backend/src, /backend/prisma, /frontend/src, /tests). Explica el propósito de cada carpeta principal.
+Define la estructura de directorios y ficheros del proyecto AIFindOps bajo un enfoque de monorepo modular y Clean Architecture (/docker, /backend/src, /backend/prisma, /frontend/src, /tests). Explica el propósito de cada carpeta principal.
 ```
 
 ### **2.4. Infraestructura y despliegue**
@@ -105,14 +105,14 @@ Crea un diagrama Mermaid y una explicación técnica que compare la infraestruct
 
 **Prompt 1:**
 ```text
-Detalla las prácticas y mecanismos de seguridad aplicados en AIFinOps: autenticación JWT, RBAC jerárquico por organización/departamento, hashing con bcrypt, validación de payloads con Zod, sanitización de cabeceras con Helmet, CORS y rate limiting.
+Detalla las prácticas y mecanismos de seguridad aplicados en AIFindOps: autenticación JWT, RBAC jerárquico por organización/departamento, hashing con bcrypt, validación de payloads con Zod, sanitización de cabeceras con Helmet, CORS y rate limiting.
 ```
 
 ### **2.6. Tests**
 
 **Prompt 1:**
 ```text
-Diseña la estrategia de testing del proyecto AIFinOps dividida en:
+Diseña la estrategia de testing del proyecto AIFindOps dividida en:
 1. Tests unitarios con Vitest (motor de agregación y cálculo financiero de costes de tokens).
 2. Tests de integración con Supertest + Vitest (endpoints de ingesta y dashboard de métricas contra BBDD de pruebas).
 3. Tests End-to-End con Playwright (flujo de login, navegación por la tabla drill-down y filtrado de entornos DEV/PRO).
@@ -124,14 +124,14 @@ Diseña la estrategia de testing del proyecto AIFinOps dividida en:
 
 **Prompt 1 (Análisis comparativo de BBDD y escalabilidad):**
 ```text
-Para una aplicación de FinOps y observabilidad de IA como AIFinOps que maneja datos jerárquicos (Organización -> Departamento -> Usuario) y un volumen potencialmente masivo de eventos de telemetría y logs de ejecución:
+Para una aplicación de FinOps y observabilidad de IA como AIFindOps que maneja datos jerárquicos (Organización -> Departamento -> Usuario) y un volumen potencialmente masivo de eventos de telemetría y logs de ejecución:
 - ¿Qué ventajas y desventajas tiene utilizar PostgreSQL frente a NoSQL (MongoDB) o una solución híbrida/series temporales?
 - ¿Cómo podemos diseñar un modelo de datos en PostgreSQL con Prisma ORM que garantice integridad referencial en la jerarquía y al mismo tiempo optimice las consultas analíticas de agregación temporal mediante índices y campos JSONB?
 ```
 
 **Prompt 2 (Diagrama Entidad-Relación y definición de entidades):**
 ```text
-Genera el diagrama Entidad-Relación en formato Mermaid (`erDiagram`) y el diccionario de datos detallado para AIFinOps. Incluye las entidades:
+Genera el diagrama Entidad-Relación en formato Mermaid (`erDiagram`) y el diccionario de datos detallado para AIFindOps. Incluye las entidades:
 - ORGANIZATION
 - DEPARTMENT
 - USER
@@ -148,7 +148,7 @@ Especifica para cada entidad sus tipos de datos, claves primarias (PK), foránea
 
 **Prompt 1 (Especificación OpenAPI 3.0):**
 ```text
-Genera la especificación formal en OpenAPI 3.0 (formato YAML) para los 3 endpoints principales de AIFinOps:
+Genera la especificación formal en OpenAPI 3.0 (formato YAML) para los 3 endpoints principales de AIFindOps:
 1. POST /api/v1/ingestion/logs (Ingesta y procesamiento de lotes de logs de telemetría de IA).
 2. GET /api/v1/metrics/dashboard (Consulta de KPIs globales a 90 días y árbol de agregación jerárquica con filtros de fecha y entorno DEV/PRE/PRO).
 3. GET /api/v1/agents/{agentId}/executions (Trazabilidad y listado paginado de ejecuciones individuales de un agente).
@@ -161,7 +161,7 @@ Incluye esquemas de petición, respuesta y esquemas de seguridad con Bearer JWT.
 
 **Prompt 1 (Definición de Historias de Usuario con Criterios de Aceptación Gherkin):**
 ```text
-Redacta 3 Historias de Usuario completas para el desarrollo de AIFinOps siguiendo las mejores prácticas de producto ágil:
+Redacta 3 Historias de Usuario completas para el desarrollo de AIFindOps siguiendo las mejores prácticas de producto ágil:
 - Formato: Como [rol], quiero [funcionalidad], para [beneficio de negocio].
 - Criterios de aceptación detallados en formato Gherkin (Dado que / Cuando / Entonces) cubriendo casos de éxito y filtros de entorno.
 

@@ -1,4 +1,4 @@
-# AIFinOps — Plataforma de Observabilidad, Gobernanza y FinOps de IA
+# AIFindOps — Plataforma de Observabilidad, Gobernanza y FinOps de IA
 
 ## Índice
 
@@ -19,10 +19,10 @@
 Marcos Luna
 
 ### **0.2. Nombre del proyecto:**
-AIFinOps
+AIFindOps
 
 ### **0.3. Descripción breve del proyecto:**
-AIFinOps es una plataforma integral de observabilidad, gobernanza y FinOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
+AIFindOps es una plataforma integral de observabilidad, gobernanza y FinOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
 
 ### **0.4. URL del proyecto:**
 *Pendiente de despliegue en Entrega 3
@@ -38,7 +38,7 @@ Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalpro
 En la actualidad, las empresas se enfrentan a un crecimiento exponencial y descontrolado en el uso de modelos fundacionales y agentes autónomos de Inteligencia Artificial (OpenAI, Google Gemini, Claude, etc.). Esta situación genera problemas críticos como el *Shadow AI*, facturas impredecibles de proveedores, falta de atribución de costes por centros de responsabilidad y ausencia de métricas de rendimiento y adopción.
 
 **Propósito y Valor:**
-AIFinOps centraliza la telemetría, auditoría y control financiero del consumo de IA en la empresa, transformando datos crudos de ejecución en información estratégica.
+AIFindOps centraliza la telemetría, auditoría y control financiero del consumo de IA en la empresa, transformando datos crudos de ejecución en información estratégica.
 
 **¿Qué soluciona?**
 * **Falta de visibilidad:** Desconocimiento de qué agentes, departamentos o usuarios generan el gasto.
@@ -92,7 +92,7 @@ La experiencia de usuario está optimizada para ofrecer una navegación fluida, 
 
 ```
 +---------------------------------------------------------------------------------------+
-|  [Logo AIFinOps]   Organización: [Acme Corp v]   Entorno: [TODOS | DEV | PRE | PRO]   |
+|  [Logo AIFindOps]   Organización: [Acme Corp v]   Entorno: [TODOS | DEV | PRE | PRO]   |
 +---------------------------------------------------------------------------------------+
 |  KPIs GLOBALES (Últimos 90 días):                                                     |
 |  +----------------+ +----------------+ +----------------+ +------------------------+  |
@@ -146,8 +146,8 @@ Contenido básico de `.env`:
 ```env
 PORT=3000
 NODE_ENV=development
-DATABASE_URL="postgresql://aifinops_user:aifinops_pass@localhost:5432/aifinops_db?schema=public"
-JWT_SECRET="super_secret_jwt_key_aifinops_2026"
+DATABASE_URL="postgresql://aifindops_user:aifindops_pass@localhost:5432/aifindops_db?schema=public"
+JWT_SECRET="super_secret_jwt_key_aifindops_2026"
 CORS_ORIGIN="http://localhost:5173"
 ```
 
@@ -540,7 +540,7 @@ A continuación se describen los 3 endpoints principales en formato **OpenAPI 3.
 ```yaml
 openapi: 3.0.3
 info:
-  title: AIFinOps API
+  title: AIFindOps API
   description: API de Observabilidad, Gobernanza y FinOps para consumo de Agentes de IA.
   version: 1.0.0
 servers:
@@ -927,7 +927,7 @@ components:
 * **Título:** Ingesta y normalización de archivos de logs de telemetría de IA
 * **Como:** Administrador del Sistema / Ingeniero de Plataforma,
 * **Quiero:** Subir ficheros de logs (JSON/JSONL/CSV) con eventos de ejecución de OpenAI, Google Gemini o proxies de IA,
-* **Para:** Centralizar y estandarizar automáticamente los registros de consumo, cálculo de tokens y costes monetarios en la base de datos de AIFinOps.
+* **Para:** Centralizar y estandarizar automáticamente los registros de consumo, cálculo de tokens y costes monetarios en la base de datos de AIFindOps.
 
 **Criterios de Aceptación (Gherkin):**
 * **Escenario 1: Ingesta de fichero válido**
