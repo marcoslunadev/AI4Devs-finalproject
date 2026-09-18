@@ -28,7 +28,7 @@ AIFindOps es una plataforma integral de observabilidad, gobernanza y FindOps de 
 *Pendiente de despliegue en Entrega 3
 
 ### **0.5. URL o archivo comprimido del repositorio:**
-Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalproject-aifindops`
+Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalproject-aifinops`
 
 ---
 
@@ -133,7 +133,7 @@ El proyecto está diseñado para levantarse localmente de forma rápida y reprod
 #### **Paso 1: Clonar el repositorio**
 ```bash
 git clone https://github.com/marcoslunadev/AI4Devs-finalproject-aifindops.git
-cd AI4Devs-finalproject-aifindops
+cd AI4Devs-finalproject-aifinops
 ```
 
 #### **Paso 2: Configurar las variables de entorno**
@@ -146,8 +146,8 @@ Contenido básico de `.env`:
 ```env
 PORT=3000
 NODE_ENV=development
-DATABASE_URL="postgresql://aifindops_user:aifindops_pass@localhost:5432/aifindops_db?schema=public"
-JWT_SECRET="super_secret_jwt_key_aifindops_2026"
+DATABASE_URL="postgresql://aifinops_user:aifinops_pass@localhost:5432/aifinops_db?schema=public"
+JWT_SECRET="super_secret_jwt_key_aifinops_2026"
 CORS_ORIGIN="http://localhost:5173"
 ```
 
@@ -288,7 +288,7 @@ flowchart TB
 El proyecto sigue una estructura limpia y modular organizada como monorepo:
 
 ```
-AI4Devs-finalproject-aifindops/
+AI4Devs-finalproject-aifinops/
 ├── docker/
 │   └── docker-compose.yml        # Definición del contenedor PostgreSQL y volúmenes
 ├── backend/
