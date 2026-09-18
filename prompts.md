@@ -43,7 +43,7 @@ A pesar de la precisión del código y los diagramas generados por la IA, se rea
 
 **Prompt 1 (Ideación y definición del alcance de producto):**
 ```text
-Actúa como un Lead Product Manager y arquitecto de software senior. Quiero construir una aplicación de observabilidad y gobernanza de IA (FinOps de IA) para monitorizar el consumo de recursos (OpenAI, Google Gemini, Anthropic, etc.) a nivel de Organización, Departamento y Usuario. 
+Actúa como un Lead Product Manager y arquitecto de software senior. Quiero construir una aplicación de observabilidad y gobernanza de IA (FindOps de IA) para monitorizar el consumo de recursos (OpenAI, Google Gemini, Anthropic, etc.) a nivel de Organización, Departamento y Usuario. 
 
 Requisitos de negocio:
 - Panel superior con KPIs globales (agentes de IA activos, tokens de entrada/salida, coste acumulado de 90 días, coste medio por ejecución y mix de modelos).
@@ -124,7 +124,7 @@ Diseña la estrategia de testing del proyecto AIFindOps dividida en:
 
 **Prompt 1 (Análisis comparativo de BBDD y escalabilidad):**
 ```text
-Para una aplicación de FinOps y observabilidad de IA como AIFindOps que maneja datos jerárquicos (Organización -> Departamento -> Usuario) y un volumen potencialmente masivo de eventos de telemetría y logs de ejecución:
+Para una aplicación de FindOps y observabilidad de IA como AIFindOps que maneja datos jerárquicos (Organización -> Departamento -> Usuario) y un volumen potencialmente masivo de eventos de telemetría y logs de ejecución:
 - ¿Qué ventajas y desventajas tiene utilizar PostgreSQL frente a NoSQL (MongoDB) o una solución híbrida/series temporales?
 - ¿Cómo podemos diseñar un modelo de datos en PostgreSQL con Prisma ORM que garantice integridad referencial en la jerarquía y al mismo tiempo optimice las consultas analíticas de agregación temporal mediante índices y campos JSONB?
 ```

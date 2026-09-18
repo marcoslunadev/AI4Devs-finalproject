@@ -1,4 +1,4 @@
-# AIFindOps — Plataforma de Observabilidad, Gobernanza y FinOps de IA
+# AIFindOps — Plataforma de Observabilidad, Gobernanza y FindOps de IA
 
 ## Índice
 
@@ -22,7 +22,7 @@ Marcos Luna
 AIFindOps
 
 ### **0.3. Descripción breve del proyecto:**
-AIFindOps es una plataforma integral de observabilidad, gobernanza y FinOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
+AIFindOps es una plataforma integral de observabilidad, gobernanza y FindOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
 
 ### **0.4. URL del proyecto:**
 *Pendiente de despliegue en Entrega 3
@@ -42,7 +42,7 @@ AIFindOps centraliza la telemetría, auditoría y control financiero del consumo
 
 **¿Qué soluciona?**
 * **Falta de visibilidad:** Desconocimiento de qué agentes, departamentos o usuarios generan el gasto.
-* **Control presupuestario (FinOps):** Permite calcular el coste unitario por ejecución, token y departamento.
+* **Control presupuestario (FindOps):** Permite calcular el coste unitario por ejecución, token y departamento.
 * **Gobierno y Auditoría:** Supervisión de latencias, tasas de error y cumplimiento de entornos (DEV, PRE, PRO).
 * **Toma de decisiones:** Proporciona a los roles directivos información en tiempo casi real para justificar el ROI y planificar inversiones en IA.
 
@@ -541,7 +541,7 @@ A continuación se describen los 3 endpoints principales en formato **OpenAPI 3.
 openapi: 3.0.3
 info:
   title: AIFindOps API
-  description: API de Observabilidad, Gobernanza y FinOps para consumo de Agentes de IA.
+  description: API de Observabilidad, Gobernanza y FindOps para consumo de Agentes de IA.
   version: 1.0.0
 servers:
   - url: http://localhost:3000/api/v1
