@@ -126,7 +126,7 @@ La experiencia de usuario está optimizada para ofrecer una navegación fluida, 
 El proyecto está diseñado para levantarse localmente de forma rápida y reproducible utilizando **Docker Compose** para la base de datos y scripts de desarrollo para frontend y backend.
 
 #### **Requisitos previos:**
-* Node.js v18+ y npm v9+
+* Node.js v22+ (LTS) y npm v9+
 * Docker Desktop o Docker Engine con Docker Compose v2+
 * Git
 
