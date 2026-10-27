@@ -1,4 +1,4 @@
-# AIFindOps — Plataforma de Observabilidad, Gobernanza y FindOps de IA
+# AIFinOps — Plataforma de Observabilidad, Gobernanza y FinOps de IA
 
 ## Índice
 
@@ -16,19 +16,19 @@
 ## 0. Ficha del proyecto
 
 ### **0.1. Tu nombre completo:**
-Marcos Luna
+Marcos Luna Rodríguez
 
 ### **0.2. Nombre del proyecto:**
-AIFindOps
+AIFinOps
 
 ### **0.3. Descripción breve del proyecto:**
-AIFindOps es una plataforma integral de observabilidad, gobernanza y FindOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
+AIFinOps es una plataforma integral de observabilidad, gobernanza y FinOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
 
 ### **0.4. URL del proyecto:**
 *Pendiente de despliegue en Entrega 3
 
 ### **0.5. URL o archivo comprimido del repositorio:**
-Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalproject-aifinops`
+Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalproject`
 
 ---
 
@@ -38,11 +38,11 @@ Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalpro
 En la actualidad, las empresas se enfrentan a un crecimiento exponencial y descontrolado en el uso de modelos fundacionales y agentes autónomos de Inteligencia Artificial (OpenAI, Google Gemini, Claude, etc.). Esta situación genera problemas críticos como el *Shadow AI*, facturas impredecibles de proveedores, falta de atribución de costes por centros de responsabilidad y ausencia de métricas de rendimiento y adopción.
 
 **Propósito y Valor:**
-AIFindOps centraliza la telemetría, auditoría y control financiero del consumo de IA en la empresa, transformando datos crudos de ejecución en información estratégica.
+AIFinOps centraliza la telemetría, auditoría y control financiero del consumo de IA en la empresa, transformando datos crudos de ejecución en información estratégica.
 
 **¿Qué soluciona?**
 * **Falta de visibilidad:** Desconocimiento de qué agentes, departamentos o usuarios generan el gasto.
-* **Control presupuestario (FindOps):** Permite calcular el coste unitario por ejecución, token y departamento.
+* **Control presupuestario (FinOps):** Permite calcular el coste unitario por ejecución, token y departamento.
 * **Gobierno y Auditoría:** Supervisión de latencias, tasas de error y cumplimiento de entornos (DEV, PRE, PRO).
 * **Toma de decisiones:** Proporciona a los roles directivos información en tiempo casi real para justificar el ROI y planificar inversiones en IA.
 
@@ -55,44 +55,86 @@ AIFindOps centraliza la telemetría, auditoría y control financiero del consumo
 
 ### **1.2. Características y funcionalidades principales:**
 
+#### **1.2.1. Alcance Acotado del MVP (Camino Feliz - Entrega del Máster):**
+Para garantizar la viabilidad y máxima robustez en el tiempo de entrega del máster, el alcance del MVP se focaliza en un **camino feliz** de alto impacto:
+
 1. **Ingesta y Normalización de Logs de IA (Data Ingestion Engine):**
-   * Procesamiento de ficheros de telemetría (JSON, JSONL, CSV) provenientes de gateways, proxies o SDKs de proveedores de IA (OpenAI, Google Gemini, Anthropic).
-   * Normalización de tokens (Prompt/Input, Completion/Output), costes monetarios estandarizados, latencias, timestamps y modelos utilizados.
+   * **Formato Único Estándar (JSON / JSONL):** Procesamiento y validación estricta de ficheros de telemetría estructurados.
+   * **Cálculo Financiero Automatizado:** Normalización de tokens (Input/Prompt, Output/Completion) y cálculo monetario exacto del coste (`cost_usd`) aplicando la tabla de precios versionada por modelo y proveedor (`ModelPrice`).
+   * **Auditoría de Ingesta:** Registro transaccional del lote (`IngestionBatch`) con métricas de eventos procesados y fallidos.
 
 2. **Dashboard Ejecutivo con KPIs Globales (Ventana de 90 días / Rango dinámico):**
-   * Panel superior con métricas agregadas:
+   * Panel superior con métricas consolidadas:
      * **Total de Agentes de IA Activos** (nuevos vs acumulados).
      * **Volumen Total de Tokens** (desglose Input / Output).
      * **Coste Total Acumulado ($/€)** con comparativa de tendencia.
      * **Coste Medio por Ejecución** (Unit Economics de IA).
-     * **Mix de Proveedores / Modelos** (distribución de cuota de uso).
-     * **Tasa de Éxito / SLA** (% de ejecuciones exitosas vs fallidas).
+     * **Mix de Proveedores / Modelos** (distribución porcentual de cuota de uso).
+     * **Tasa de Éxito / SLA** (% de llamadas `SUCCESS` vs incidencias).
 
 3. **Matriz Jerárquica Drill-Down (Organización ➔ Departamento ➔ Usuario):**
-   * Tabla interactiva con sumatorios en cascada: la suma de usuarios conforma el total del departamento, y la suma de departamentos conforma el total de la organización.
-   * Filtros dinámicos multidimensionales: rango de fechas y entorno (**DEV**, **PRE**, **PRO**).
-   * Despliegue en acordeón:
-     * Fila Organización ➔ Despliega Departamentos.
-     * Fila Departamento ➔ Despliega Usuarios.
+   * Tabla analítica interactiva con agregación matemática en cascada: la suma de usuarios conforma el total del departamento, y la suma de departamentos conforma el total de la organización.
+   * Filtros dinámicos multidimensionales: selector de rango temporal y filtro de entorno (**DEV**, **PRE**, **PRO**, **TODOS**).
+   * Despliegue en acordeón interactivo (*Organización ➔ Departamento ➔ Usuario*).
 
-4. **Explorador de Auditoría y Trazabilidad Granular (Detail Views):**
-   * **Vista Detalle de Organización:** Inventario de agentes de IA asociados a la organización, versiones y actividad global.
-   * **Vista Detalle de Departamento:** Análisis de consumo departamental y agentes asignados.
-   * **Vista Detalle de Usuario:** Trazabilidad individual con el log completo de ejecuciones (timestamp, agente, modelo, tokens, coste, latencia y entorno).
+4. **Explorador de Auditoría Granular (Vista de Detalle de Agente):**
+   * **Ficha Técnica de Agente (`AgentDetailView`):** Vista especializada para auditar el inventario de agentes, versiones, cuotas de uso y el histórico cronológico paginado de ejecuciones (timestamp, usuario invocador, modelo, tokens, coste, latencia y estado).
 
-5. **Control de Acceso Basado en Roles (RBAC) y Seguridad:**
-   * Autenticación segura con JWT.
-   * Perfiles de acceso segmentados: `SUPER_ADMIN` (visión multi-organización), `ORG_MANAGER` (acceso a su organización), `DEPT_MANAGER` (acceso a su departamento) y `AUDITOR`.
+5. **Control de Acceso Simplificado (RBAC Core):**
+   * Autenticación segura mediante **JWT** con 2 roles operativos clave en el MVP:
+     * `ADMIN`: Acceso completo a métricas, subida e ingesta de ficheros de telemetría y administración.
+     * `FINOPS_VIEWER`: Acceso de lectura ejecutiva al Dashboard, tabla jerárquica y filtros de entorno.
+
+6. **Datos Semilla Realistas (`seed.ts`):**
+   * Generación determinista de organizaciones, departamentos, usuarios, agentes y telemetría histórica con patrones de consumo realistas para que el dashboard y los sumatorios tengan significado inmediato.
+
+#### **1.2.2. Roadmap y Funcionalidades para Versión 2 (Post-MVP):**
+* Ingesta de ficheros en formato plano `CSV`.
+* Ampliación del modelo RBAC a 4 roles (`SUPER_ADMIN` multi-tenant y `AUDITOR` de cumplimiento normativo).
+* Vistas de detalle dedicadas e independientes para Organización y Departamento (en MVP se exploran dentro de la jerarquía drill-down).
+* Alertas automáticas de desviación presupuestaria y conector en streaming directo con proxies empresariales (Cloudflare AI Gateway / LiteLLM).
 
 ---
 
-### **1.3. Diseño y experiencia de usuario:**
+### **1.3. Estrategia de Ingesta y Resolución de Identidad (Mapeo de Logs Reales):**
+
+Un log nativo directo de proveedores como OpenAI o Google Gemini contiene parámetros técnicos (modelo, tokens, timestamp, id de petición), pero **carece de identificadores organizativos** (`user_id`, `department_id` o `agent_id`). Para resolver esta brecha y dotar de coherencia total al sistema, AIFinOps establece la siguiente estrategia:
+
+```
+[ Petición de IA en la Empresa ]
+             │
+             ▼
+[ Wrapper SDK / AI Gateway Corporativo ]
+(Inyecta metadatos: x-agent-id, x-user-email, environment)
+             │
+             ▼
+[ Fichero de Telemetría JSON/JSONL ]
+             │
+             ▼
+[ Ingestion Engine de AIFinOps ]
+  ├─ 1. Valida esquema del evento con Zod.
+  ├─ 2. Resuelve user_id a partir del email (o ID) contra la BBDD (datos semilla/reales).
+  ├─ 3. Resuelve agent_id a partir del catálogo de agentes registrados.
+  ├─ 4. Consulta tabla MODEL_PRICE para calcular coste exacto en USD.
+  └─ 5. Inserta transacción atómica en EXECUTION_LOG vinculada al INGESTION_BATCH.
+```
+
+1. **Formato Estándar de Evento AIFinOps:**
+   Cada evento en el fichero JSON/JSONL incluye la información técnica del LLM junto con las etiquetas de atribución corporativa (`agentId`, `userEmail` o `userId`, `environment`).
+2. **Mapeo Automático en Ingesta:**
+   El motor de ingesta busca el `userEmail` en la tabla `User`. Si no se especifica usuario o agente, el sistema lo mapea automáticamente al usuario por defecto del departamento o al agente asignado por defecto a la organización, evitando pérdidas de datos.
+3. **Mecanismo de Subida (Frontend ➔ API):**
+   El modal de subida en el Frontend envía el archivo mediante **`multipart/form-data`** al endpoint `POST /api/v1/ingestion/logs`. El backend procesa el fichero en streaming/batch para un consumo eficiente de memoria.
+
+---
+
+### **1.4. Diseño y experiencia de usuario:**
 
 La experiencia de usuario está optimizada para ofrecer una navegación fluida, profesional y orientada al análisis de datos sin sobrecarga cognitiva:
 
 ```
 +---------------------------------------------------------------------------------------+
-|  [Logo AIFindOps]   Organización: [Acme Corp v]   Entorno: [TODOS | DEV | PRE | PRO]   |
+|  [Logo AIFinOps]   Organización: [Acme Corp v]   Entorno: [TODOS | DEV | PRE | PRO]   |
 +---------------------------------------------------------------------------------------+
 |  KPIs GLOBALES (Últimos 90 días):                                                     |
 |  +----------------+ +----------------+ +----------------+ +------------------------+  |
@@ -113,15 +155,15 @@ La experiencia de usuario está optimizada para ofrecer una navegación fluida, 
 ```
 
 **Flujo de Navegación del Usuario:**
-1. **Acceso:** Login con credenciales seguras y redirección según rol.
+1. **Acceso:** Login con credenciales seguras y redirección según rol (`ADMIN` o `FINOPS_VIEWER`).
 2. **Dashboard Central:** Vista ejecutiva de KPIs y tabla jerárquica con filtros de entorno aplicables en tiempo real.
 3. **Exploración Jerárquica:** El usuario despliega la fila de su organización o departamento para identificar picos de consumo o anomalías.
-4. **Inspección Profunda:** Al hacer clic en un agente, departamento o usuario, el sistema abre una vista de detalle con gráficos de series temporales y el histórico de ejecuciones.
-5. **Módulo de Ingesta:** Modal drag-and-drop para subir nuevos ficheros de logs con validación y previsualización de datos.
+4. **Inspección Profunda:** Al hacer clic en un agente en la tabla, el sistema abre la vista de detalle de agente (`AgentDetailView`) con gráficos temporales y el histórico cronológico de ejecuciones.
+5. **Módulo de Ingesta:** Modal drag-and-drop para subir nuevos ficheros JSON/JSONL con validación y previsualización de datos.
 
 ---
 
-### **1.4. Instrucciones de instalación:**
+### **1.5. Instrucciones de instalación:**
 
 El proyecto está diseñado para levantarse localmente de forma rápida y reproducible utilizando **Docker Compose** para la base de datos y scripts de desarrollo para frontend y backend.
 
@@ -132,8 +174,8 @@ El proyecto está diseñado para levantarse localmente de forma rápida y reprod
 
 #### **Paso 1: Clonar el repositorio**
 ```bash
-git clone https://github.com/marcoslunadev/AI4Devs-finalproject-aifindops.git
-cd AI4Devs-finalproject-aifinops
+git clone https://github.com/marcoslunadev/AI4Devs-finalproject.git
+cd AI4Devs-finalproject
 ```
 
 #### **Paso 2: Configurar las variables de entorno**
@@ -155,7 +197,7 @@ CORS_ORIGIN="http://localhost:5173"
 ```bash
 docker compose up -d
 ```
-> Esto levantará un contenedor de **PostgreSQL 16** en el puerto `5432` con volumen persistente (`postgres_data`) y opcionalmente un panel Adminer/pgAdmin en el puerto `8080`.
+> Esto levantará un contenedor de **PostgreSQL 16** en el puerto `5432` con volumen persistente (`postgres_data`) y panel de administración en el puerto `8080`.
 
 #### **Paso 4: Instalar dependencias y ejecutar migraciones de BBDD**
 ```bash
@@ -165,7 +207,7 @@ npm install
 # Generar cliente de Prisma y aplicar migraciones
 npx prisma migrate dev --name init
 
-# Poblar la base de datos con datos semilla (organizaciones, usuarios, agentes y logs de ejemplo)
+# Poblar la base de datos con datos semilla (organizaciones, departamentos, usuarios, catálogo de agentes, tarifas de modelos y telemetría de ejemplo)
 npx prisma db seed
 ```
 
@@ -288,14 +330,14 @@ flowchart TB
 El proyecto sigue una estructura limpia y modular organizada como monorepo:
 
 ```
-AI4Devs-finalproject-aifinops/
+AI4Devs-finalproject/
 ├── docker/
 │   └── docker-compose.yml        # Definición del contenedor PostgreSQL y volúmenes
 ├── backend/
 │   ├── src/
 │   │   ├── config/               # Variables de entorno y configuración
 │   │   ├── controllers/          # Manejadores de rutas HTTP (Auth, Metrics, Ingestion, Agents)
-│   │   ├── services/             # Lógica de negocio (Agregación, Ingesta, Auditoría)
+│   │   ├── services/             # Lógica de negocio (Agregación, Ingesta, Auditoría, Precios)
 │   │   ├── repositories/         # Consultas de acceso a datos y agregaciones Prisma
 │   │   ├── middlewares/          # Auth JWT, RBAC, validación Zod, Error Handler
 │   │   ├── schemas/              # Esquemas de validación Zod (DTOs)
@@ -304,7 +346,7 @@ AI4Devs-finalproject-aifinops/
 │   ├── prisma/
 │   │   ├── schema.prisma         # Esquema de base de datos relacional
 │   │   ├── migrations/           # Historial de migraciones SQL
-│   │   └── seed.ts               # Semilla con datos de prueba
+│   │   └── seed.ts               # Semilla con datos de prueba realistas
 │   ├── tests/                    # Tests unitarios y de integración (Vitest + Supertest)
 │   ├── package.json
 │   └── tsconfig.json
@@ -359,7 +401,7 @@ flowchart LR
 
 1. **Autenticación y Autorización:**
    * Tokens **JWT (JSON Web Tokens)** firmados con algoritmo HMAC-SHA256 y tiempo de expiración configurable.
-   * Middleware **RBAC** que valida el rol (`SUPER_ADMIN`, `ORG_MANAGER`, `DEPT_MANAGER`, `AUDITOR`) y comprueba que el usuario solo acceda a los recursos de su jerarquía asignada.
+   * Middleware **RBAC** que valida el rol (`ADMIN`, `FINOPS_VIEWER`) y comprueba los permisos de acceso y subida de telemetría.
 2. **Protección de Datos y Contraseñas:**
    * Hashing seguro de contraseñas con **bcrypt** (cost factor 10+).
    * Variables de entorno para secretos (`.env`) excluidas estrictamente de git (`.gitignore`).
@@ -373,8 +415,8 @@ flowchart LR
 
 ### **2.6. Tests:**
 
-* **Tests Unitarios (Vitest):** Cobertura de la lógica de cálculo del motor de agregación jerárquica (sumatorios en cascada, cálculo de costes medios y normalización de tokens de proveedores).
-* **Tests de Integración (Supertest + Vitest):** Verificación de los endpoints principales de la API (`/api/v1/ingestion/logs`, `/api/v1/metrics/dashboard`), validando códigos de estado HTTP, autenticación JWT y persistencia en una BBDD PostgreSQL de test.
+* **Tests Unitarios (Vitest):** Cobertura exhaustiva de la lógica de cálculo del motor de agregación jerárquica (sumatorios en cascada, cálculo de costes medios y normalización de tokens de proveedores aplicando `ModelPrice`).
+* **Tests de Integración (Supertest + Vitest):** Verificación de los endpoints principales de la API (`/api/v1/auth/login`, `/api/v1/ingestion/logs`, `/api/v1/metrics/dashboard`, `/api/v1/agents/{agentId}/executions`), validando códigos de estado HTTP, autenticación JWT y persistencia en una BBDD PostgreSQL de test.
 * **Tests End-to-End (Playwright):** Prueba automatizada del flujo crítico: Login ➔ Carga del Dashboard con KPIs ➔ Despliegue del acordeón jerárquico (*Org ➔ Dept ➔ User*) ➔ Filtrado por entorno DEV/PRO.
 
 ---
@@ -392,6 +434,7 @@ erDiagram
     AI_AGENT ||--o{ EXECUTION_LOG : "es_ejecutado"
     INGESTION_BATCH ||--o{ EXECUTION_LOG : "registra"
     USER }|--|| ROLE : "tiene_rol"
+    MODEL_PRICE ||--o{ EXECUTION_LOG : "tarifica"
 
     ORGANIZATION {
         string id PK "cuid/uuid"
@@ -411,7 +454,7 @@ erDiagram
 
     ROLE {
         string id PK
-        string code "SUPER_ADMIN, ORG_MANAGER, DEPT_MANAGER, AUDITOR"
+        string code "ADMIN, FINOPS_VIEWER (extensible a AUDITOR, DEPT_MANAGER)"
         string description
     }
 
@@ -438,13 +481,28 @@ erDiagram
         timestamp created_at
     }
 
+    MODEL_PRICE {
+        string id PK "cuid/uuid"
+        string provider "OPENAI, GOOGLE_GEMINI, ANTHROPIC"
+        string model_name "gpt-4o, gemini-1.5-pro, claude-3-5-sonnet"
+        decimal prompt_price_per_1k "numeric(10,6), not null"
+        decimal completion_price_per_1k "numeric(10,6), not null"
+        timestamp effective_from "not null"
+        boolean is_active "default true"
+        timestamp created_at
+    }
+
     INGESTION_BATCH {
         string id PK "cuid/uuid"
         string filename "not null"
-        string source "API_GATEWAY, FILE_UPLOAD, AGENT_PROXY"
+        string source "FILE_UPLOAD, API_GATEWAY, AGENT_PROXY"
+        string status "PENDING, PROCESSED, FAILED, PARTIAL_ERROR"
         int total_records "default 0"
-        string status "PENDING, PROCESSED, FAILED"
+        int processed_records "default 0"
+        int failed_records "default 0"
+        string uploaded_by_user_id FK "nullable"
         timestamp processed_at
+        timestamp created_at
     }
 
     EXECUTION_LOG {
@@ -460,7 +518,7 @@ erDiagram
         int total_tokens "not null, default 0"
         decimal cost_usd "numeric(10,6), not null"
         int latency_ms "not null"
-        string status "SUCCESS, ERROR, TIMEOUT"
+        string status "SUCCESS, ERROR, TIMEOUT, RATE_LIMIT_EXCEEDED"
         jsonb metadata "detalles del proveedor y payload"
         timestamp executed_at "not null, indexed"
         timestamp created_at "default now"
@@ -493,7 +551,7 @@ erDiagram
   * `id` (String, PK): Identificador único.
   * `department_id` (String, FK, Not Null): Referencia a `DEPARTMENT.id`.
   * `role_id` (String, FK, Not Null): Referencia a `ROLE.id`.
-  * `email` (String, Not Null, Unique): Correo electrónico para autenticación.
+  * `email` (String, Not Null, Unique): Correo electrónico para autenticación y mapeo de logs.
   * `password_hash` (String, Not Null): Contraseña cifrada con bcrypt.
   * `full_name` (String, Not Null): Nombre completo del usuario.
   * `is_active` (Boolean, Default True): Estado de la cuenta.
@@ -509,54 +567,131 @@ erDiagram
   * `version` (String, Default '1.0.0'): Versión del agente.
   * `is_active` (Boolean, Default True): Disponibilidad operativa.
 
-#### **5. `EXECUTION_LOG` (Telemetría de Ejecuciones y Consumo)**
+#### **5. `MODEL_PRICE` (Tarifas y Costes Oficiales de Modelos)**
+* Catálogo de precios versionados por modelo y proveedor para garantizar cálculos financieros deterministas y auditables sin discrepancias.
+* **Campos:**
+  * `id` (String, PK, CUID/UUID): Identificador único de la tarifa.
+  * `provider` (String, Not Null): Proveedor del modelo (`OPENAI`, `GOOGLE_GEMINI`, `ANTHROPIC`).
+  * `model_name` (String, Not Null): Nombre del modelo base (ej. `gpt-4o`, `gemini-1.5-pro`).
+  * `prompt_price_per_1k` (Decimal 10,6, Not Null): Precio en USD por cada 1,000 tokens de entrada/prompt.
+  * `completion_price_per_1k` (Decimal 10,6, Not Null): Precio en USD por cada 1,000 tokens de salida/completion.
+  * `effective_from` (Timestamp, Not Null): Fecha a partir de la cual entra en vigor la tarifa.
+  * `is_active` (Boolean, Default True): Indica si es la tarifa activa vigente.
+  * `created_at` (Timestamp, Default now): Fecha de registro de la tarifa.
+* **Fórmula de cálculo financiero:**
+  $$\text{cost\_usd} = \left(\text{prompt\_tokens} \times \frac{\text{prompt\_price\_per\_1k}}{1000}\right) + \left(\text{completion\_tokens} \times \frac{\text{completion\_price\_per\_1k}}{1000}\right)$$
+
+#### **6. `INGESTION_BATCH` (Lotes y Auditoría de Ingesta)**
+* Registro de auditoría y trazabilidad de los ficheros de telemetría procesados por el motor de ingesta.
+* **Campos:**
+  * `id` (String, PK, CUID/UUID): Identificador único del lote.
+  * `filename` (String, Not Null): Nombre del fichero original subido (ej. `openai_telemetry_2026_10.json`).
+  * `source` (String, Not Null): Canal de entrada (`FILE_UPLOAD`, `API_GATEWAY`, `AGENT_PROXY`).
+  * `status` (String, Not Null): Estado del procesamiento (`PENDING`, `PROCESSED`, `FAILED`, `PARTIAL_ERROR`).
+  * `total_records` (Int, Default 0): Número total de líneas/eventos leídos en el fichero.
+  * `processed_records` (Int, Default 0): Eventos validados, normalizados e insertados con éxito.
+  * `failed_records` (Int, Default 0): Eventos descartados por errores de esquema o validación.
+  * `error_summary` (JSONB, Nullable): Resumen estructurado de errores y líneas conflictivas para depuración.
+  * `uploaded_by_user_id` (String, FK, Nullable): Usuario que ejecutó la subida (`USER.id`).
+  * `processed_at` (Timestamp, Nullable): Fecha y hora de finalización del procesamiento.
+  * `created_at` (Timestamp, Default now): Fecha y hora de recepción del archivo.
+
+#### **7. `EXECUTION_LOG` (Telemetría de Ejecuciones y Consumo)**
 * Registro inmutable de cada invocación o inferencia realizada por un agente. Es la tabla de mayor volumen y base de las consultas analíticas.
 * **Campos:**
   * `id` (String, PK): Identificador único de ejecución.
   * `agent_id` (String, FK, Not Null): Agente invocado (`AI_AGENT.id`).
   * `user_id` (String, FK, Not Null): Usuario que originó la petición (`USER.id`).
-  * `batch_id` (String, FK, Nullable): Identificador del lote de ingesta origen.
+  * `batch_id` (String, FK, Nullable): Identificador del lote de ingesta origen (`INGESTION_BATCH.id`).
   * `environment` (Enum String, Not Null): Entorno de ejecución (`DEV`, `PRE`, `PRO`).
   * `provider` (String, Not Null): Proveedor utilizado en la llamada.
   * `model` (String, Not Null): Modelo concreto utilizado (ej. `gpt-4o-2024-08-06`).
   * `prompt_tokens` (Int, Not Null): Tokens de entrada/contexto.
   * `completion_tokens` (Int, Not Null): Tokens de salida/generación.
   * `total_tokens` (Int, Not Null): Suma calculada de tokens.
-  * `cost_usd` (Decimal 10,6, Not Null): Coste monetario de la ejecución en dólares/euros.
+  * `cost_usd` (Decimal 10,6, Not Null): Coste monetario exacto de la ejecución en USD calculado con `MODEL_PRICE`.
   * `latency_ms` (Int, Not Null): Tiempo de respuesta en milisegundos.
-  * `status` (String, Not Null): Estado (`SUCCESS`, `ERROR`, `RATE_LIMIT_EXCEEDED`).
-  * `metadata` (JSONB, Nullable): Datos adicionales (parámetros de temperatura, IDs externos, error codes).
-  * `executed_at` (Timestamp, Not Null, Index): Fecha/hora exacta de la ejecución.
-
-#### **6. `INGESTION_BATCH` (Lotes de Ingesta)**
-* Registro de auditoría de los ficheros de logs procesados por el sistema.
+  * `status` (Enum String, Not Null): Estado unificado de ejecución (`SUCCESS`, `ERROR`, `TIMEOUT`, `RATE_LIMIT_EXCEEDED`).
+  * `metadata` (JSONB, Nullable): Datos adicionales (temperatura, request_id de proveedor, error stack).
+  * `executed_at` (Timestamp, Not Null, Index): Fecha/hora exacta de la llamada.
+  * `created_at` (Timestamp, Default now): Fecha de inserción en la plataforma.
 
 ---
 
 ## 4. Especificación de la API
 
-A continuación se describen los 3 endpoints principales en formato **OpenAPI 3.0 (Swagger)**:
+A continuación se describe la especificación completa en formato **OpenAPI 3.0 (Swagger)**, cubriendo el ciclo completo del MVP (Autenticación, Ingesta multipart/JSON, Dashboard Jerárquico y Detalle de Agente):
 
 ```yaml
 openapi: 3.0.3
 info:
-  title: AIFindOps API
-  description: API de Observabilidad, Gobernanza y FindOps para consumo de Agentes de IA.
+  title: AIFinOps API
+  description: API de Observabilidad, Gobernanza y FinOps para monitorización y control de consumo de IA en la empresa.
   version: 1.0.0
 servers:
   - url: http://localhost:3000/api/v1
     description: Servidor de desarrollo local
 
 paths:
+  /auth/login:
+    post:
+      summary: Autenticación de usuario y obtención de token JWT
+      description: Valida credenciales contra la base de datos (bcrypt) y retorna un token JWT firmado junto con la información del usuario y su rol.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Autenticación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Credenciales incorrectas o usuario inactivo
+
+  /auth/me:
+    get:
+      summary: Obtener perfil del usuario autenticado
+      description: Devuelve la información de sesión, rol y jerarquía (organización/departamento) del usuario autenticado.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Perfil de usuario recuperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '401':
+          description: Token no válido o expirado
+
   /ingestion/logs:
     post:
-      summary: Ingesta de fichero o lote de logs de ejecución de IA
-      description: Procesa y normaliza un lote de eventos de ejecución provenientes de logs de OpenAI, Gemini u otros agentes.
+      summary: Ingesta de fichero o lote de logs de telemetría de IA
+      description: Recibe ficheros de telemetría (JSON/JSONL) mediante carga multipart desde el modal del frontend, o un array de eventos JSON directo para integraciones M2M/Gateway. Normaliza tokens, resuelve mapeos de usuario/agente y calcula costes con la tabla MODEL_PRICE.
       security:
         - BearerAuth: []
       requestBody:
         required: true
         content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Fichero de log en formato .json o .jsonl
+                source:
+                  type: string
+                  default: "FILE_UPLOAD"
+                  enum: [FILE_UPLOAD, API_GATEWAY, AGENT_PROXY]
           application/json:
             schema:
               type: object
@@ -566,17 +701,17 @@ paths:
               properties:
                 source:
                   type: string
-                  example: "FILE_UPLOAD"
+                  example: "API_GATEWAY"
                 filename:
                   type: string
-                  example: "openai_logs_2026_09_dev.json"
+                  example: "openai_telemetry_batch.json"
                 events:
                   type: array
                   items:
                     $ref: '#/components/schemas/ExecutionEventInput'
       responses:
         '201':
-          description: Lote de logs procesado e insertado correctamente
+          description: Lote procesado e insertado correctamente
           content:
             application/json:
               schema:
@@ -591,17 +726,20 @@ paths:
                   recordsProcessed:
                     type: integer
                     example: 1500
+                  recordsFailed:
+                    type: integer
+                    example: 0
                   totalCostCalculated:
                     type: number
                     format: float
                     example: 24.8512
         '400':
-          description: Error de validación en los esquemas de los eventos
+          description: Error en el formato de archivo o validación de esquemas (Zod)
 
   /metrics/dashboard:
     get:
       summary: Obtención de KPIs globales y agregaciones jerárquicas (Drill-Down)
-      description: Devuelve las métricas consolidadas (últimos 90 días o rango seleccionado) y la matriz jerárquica con sumatorios (Organización -> Departamento -> Usuario).
+      description: Devuelve las métricas consolidadas (últimos 90 días o rango seleccionado) y la matriz jerárquica con sumatorios en cascada (Organización -> Departamento -> Usuario).
       security:
         - BearerAuth: []
       parameters:
@@ -641,10 +779,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/DashboardMetricsResponse'
 
+  /agents/{agentId}:
+    get:
+      summary: Ficha técnica y métricas consolidadas de un agente de IA
+      description: Retorna la información general del agente, versión, proveedor, modelo por defecto y estadísticas de uso.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: agentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ficha del agente obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentDetailResponse'
+        '404':
+          description: Agente no encontrado
+
   /agents/{agentId}/executions:
     get:
       summary: Trazabilidad y detalle de ejecuciones de un agente de IA
-      description: Obtiene el histórico granular de ejecuciones de un agente específico con métricas de tokens, costes y latencias.
+      description: Obtiene el histórico granular paginado de ejecuciones de un agente específico con métricas de tokens, costes calculados, latencias y estado.
       security:
         - BearerAuth: []
       parameters:
@@ -659,6 +819,12 @@ paths:
           schema:
             type: string
             enum: [DEV, PRE, PRO]
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [SUCCESS, ERROR, TIMEOUT, RATE_LIMIT_EXCEEDED]
         - name: limit
           in: query
           required: false
@@ -701,11 +867,88 @@ components:
       bearerFormat: JWT
 
   schemas:
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: "admin@acme.com"
+        password:
+          type: string
+          format: password
+          example: "SecurePass2026!"
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        user:
+          $ref: '#/components/schemas/UserProfileResponse'
+
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "usr_10"
+        email:
+          type: string
+          example: "admin@acme.com"
+        fullName:
+          type: string
+          example: "Marcos Luna"
+        role:
+          type: string
+          enum: [ADMIN, FINOPS_VIEWER]
+          example: "ADMIN"
+        organizationId:
+          type: string
+          example: "org_1"
+        organizationName:
+          type: string
+          example: "Acme Corp"
+
+    AgentDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "agent_cm4918239"
+        name:
+          type: string
+          example: "DataAnalyzer-Agent"
+        provider:
+          type: string
+          example: "OPENAI"
+        modelDefault:
+          type: string
+          example: "gpt-4o"
+        version:
+          type: string
+          example: "1.0.0"
+        description:
+          type: string
+          example: "Agente autónomo para análisis predictivo de datos financieros."
+        isActive:
+          type: boolean
+          example: true
+        totalExecutions:
+          type: integer
+          example: 45200
+        totalCostUsd:
+          type: number
+          example: 184.25
+
     ExecutionEventInput:
       type: object
       required:
         - agentId
-        - userId
         - environment
         - provider
         - model
@@ -720,6 +963,11 @@ components:
         userId:
           type: string
           example: "usr_823941"
+        userEmail:
+          type: string
+          format: email
+          example: "dev.user@acme.com"
+          description: Permite resolver automáticamente el usuario si no se dispone del userId interno.
         environment:
           type: string
           enum: [DEV, PRE, PRO]
@@ -741,6 +989,7 @@ components:
           example: 850
         status:
           type: string
+          enum: [SUCCESS, ERROR, TIMEOUT, RATE_LIMIT_EXCEEDED]
           example: "SUCCESS"
         executedAt:
           type: string
@@ -887,6 +1136,7 @@ components:
           example: 920
         status:
           type: string
+          enum: [SUCCESS, ERROR, TIMEOUT, RATE_LIMIT_EXCEEDED]
           example: "SUCCESS"
         executedAt:
           type: string
@@ -902,14 +1152,14 @@ components:
 * **Identificador:** `HU-01`
 * **Título:** Visualización del Dashboard Ejecutivo y Matriz Jerárquica Drill-Down
 * **Como:** CIO / Gestor de Innovación de la empresa,
-* **Quiero:** Visualizar los KPIs globales de consumo de IA a 90 días y desplegar una tabla en cascada por Organización, Departamento y Usuario con filtros de entorno (DEV, PRE, PRO),
+* **Quiero:** Visualizar los KPIs globales de consumo de IA a 90 días y desplegar una tabla en cascada por Organización, Departamento y Usuario con filtros de entorno (DEV, PRE, PRO, TODOS),
 * **Para:** Analizar la distribución del gasto de IA por centros de coste, detectar anomalías presupuestarias y tomar decisiones informadas sobre la adopción tecnológica.
 
 **Criterios de Aceptación (Gherkin):**
 * **Escenario 1: Carga exitosa de KPIs globales**
-  * **Dado que** un usuario autenticado con rol `SUPER_ADMIN` o `ORG_MANAGER` accede al Dashboard,
+  * **Dado que** un usuario autenticado con rol directivo (`ADMIN` o `FINOPS_VIEWER`) accede al Dashboard,
   * **Cuando** la página principal se carga,
-  * **Entonces** debe visualizar en el panel superior: Total de agentes activos, Tokens totales (Input/Output), Coste total acumulado, Coste medio por ejecución y Mix de modelos del periodo seleccionado.
+  * **Entonces** debe visualizar en el panel superior: Total de agentes activos, Tokens totales (Input/Output), Coste total acumulado en USD, Coste medio por ejecución y Mix de modelos del periodo seleccionado.
 * **Escenario 2: Despliegue jerárquico de la tabla (Drill-Down)**
   * **Dado que** el usuario visualiza la fila de su organización con los sumatorios totales,
   * **Cuando** hace clic en el botón de descolapsar (+),
@@ -926,152 +1176,157 @@ components:
 * **Identificador:** `HU-02`
 * **Título:** Ingesta y normalización de archivos de logs de telemetría de IA
 * **Como:** Administrador del Sistema / Ingeniero de Plataforma,
-* **Quiero:** Subir ficheros de logs (JSON/JSONL/CSV) con eventos de ejecución de OpenAI, Google Gemini o proxies de IA,
-* **Para:** Centralizar y estandarizar automáticamente los registros de consumo, cálculo de tokens y costes monetarios en la base de datos de AIFindOps.
+* **Quiero:** Subir ficheros estructurados (JSON/JSONL) con eventos de telemetría de OpenAI o Google Gemini desde el modal de la aplicación,
+* **Para:** Centralizar, validar y normalizar automáticamente los registros de consumo, resolviendo usuarios/agentes y calculando el coste monetario exacto según la tabla de precios.
 
 **Criterios de Aceptación (Gherkin):**
 * **Escenario 1: Ingesta de fichero válido**
-  * **Dado que** el administrador selecciona un archivo JSON con eventos de telemetría válidos,
-  * **Cuando** envía la solicitud al endpoint `POST /api/v1/ingestion/logs`,
-  * **Entonces** el sistema valida los esquemas con Zod, calcula el coste monetario de cada ejecución según el modelo, inserta los registros en PostgreSQL y retorna un estado `201 Created` con el ID de lote y el número de filas procesadas.
-* **Escenario 2: Manejo de errores de formato**
+  * **Dado que** el administrador selecciona un archivo `.json` o `.jsonl` con eventos de telemetría válidos en el modal,
+  * **Cuando** envía la solicitud `multipart/form-data` al endpoint `POST /api/v1/ingestion/logs`,
+  * **Entonces** el sistema valida los esquemas con Zod, resuelve la asignación de usuario (`userEmail`/`userId`) y agente (`agentId`), calcula el coste monetario con la tabla `MODEL_PRICE`, persiste las ejecuciones vinculadas al lote `INGESTION_BATCH` y retorna un estado `201 Created` con el ID de lote y el número de registros procesados.
+* **Escenario 2: Manejo de errores de formato o campos corruptos**
   * **Dado que** el archivo contiene registros con campos obligatorios ausentes (ej. falta `promptTokens` o `model`),
   * **Cuando** se procesa la ingesta,
-  * **Entonces** el sistema rechaza los registros corruptos, devuelve un `400 Bad Request` indicando las líneas erróneas y no corrompe los datos previamente existentes.
+  * **Entonces** el sistema descarta los registros corruptos registrándolos en `failed_records` y `error_summary`, devuelve un `400 Bad Request` si el lote es inválido y no corrompe los datos previamente existentes.
 
 ---
 
 ### **Historia de Usuario 3**
 * **Identificador:** `HU-03`
-* **Título:** Auditoría y trazabilidad granular de ejecuciones por Agente y Usuario
-* **Como:** Responsable de Departamento / Auditor de Seguridad,
-* **Quiero:** Navegar al detalle de un agente de IA o de un usuario específico y revisar su historial cronológico de ejecuciones,
-* **Para:** Auditar el uso adecuado de los modelos, verificar latencias, identificar ejecuciones fallidas y supervisar qué usuario realiza cada llamada.
+* **Título:** Auditoría y trazabilidad granular de ejecuciones por Agente de IA
+* **Como:** Responsable de Departamento / Auditor de FinOps,
+* **Quiero:** Navegar a la vista de detalle de un agente de IA específico y revisar su ficha técnica e historial cronológico de llamadas,
+* **Para:** Auditar el uso adecuado de los modelos, verificar latencias, identificar ejecuciones fallidas o con límites excedidos y supervisar qué usuario realiza cada invocación.
 
 **Criterios de Aceptación (Gherkin):**
 * **Escenario 1: Acceso a la vista de detalle de agente**
-  * **Dado que** el usuario hace clic sobre el nombre o contador de ejecuciones de un agente en la tabla,
-  * **Cuando** se carga la vista de detalle del agente,
-  * **Entonces** se muestra la ficha técnica (proveedor, modelo por defecto, versión) y una tabla paginada con cada una de sus ejecuciones individuales (timestamp, usuario, entorno, tokens, coste y latencia).
+  * **Dado que** el usuario hace clic sobre el nombre de un agente en el Dashboard,
+  * **Cuando** se carga la vista de detalle `AgentDetailView`,
+  * **Entonces** se muestra la ficha técnica (proveedor, modelo por defecto, versión, coste acumulado) y una tabla paginada con cada una de sus ejecuciones individuales (timestamp, usuario, entorno, tokens, coste y latencia).
 * **Escenario 2: Filtrado por estado de ejecución**
-  * **Dado que** el auditor desea revisar incidencias,
-  * **Cuando** filtra la tabla de ejecuciones por estado "ERROR" o "RATE_LIMIT_EXCEEDED",
-  * **Entonces** la tabla muestra únicamente las llamadas fallidas con el código de error y latencia asociada.
+  * **Dado que** el auditor desea revisar anomalías o incidencias en las llamadas del agente,
+  * **Cuando** filtra la tabla de ejecuciones por estado "ERROR", "TIMEOUT" o "RATE_LIMIT_EXCEEDED",
+  * **Entonces** la tabla muestra únicamente las llamadas fallidas con el código de error, latencia y usuario responsable.
 
 ---
 
 ## 6. Tickets de Trabajo
 
-### **Ticket 1: Infraestructura de BBDD, Esquema Prisma y Docker Compose**
+### **Ticket 1: Infraestructura de BBDD, Esquema Prisma, Tabla de Precios y Docker Compose**
 * **ID:** `TCK-001`
 * **Componente:** Base de Datos / Infraestructura
 * **Tipo:** Tarea Técnica / Setup
 * **Estimación:** 5 Story Points
 * **Descripción:**
-  Configurar el entorno contenerizado de PostgreSQL 16 utilizando Docker Compose, definir el esquema completo de entidades en `schema.prisma`, crear las migraciones iniciales y desarrollar un script de semillas (`seed.ts`) con datos de prueba realistas para organizaciones, departamentos, usuarios, roles, agentes de IA y logs de ejecución.
+  Configurar el entorno contenerizado de PostgreSQL 16 utilizando Docker Compose, definir el esquema completo de entidades en `schema.prisma` (incluyendo `ModelPrice` e `IngestionBatch`), crear las migraciones iniciales y desarrollar un script de semillas (`seed.ts`) con datos de prueba realistas para organizaciones, departamentos, usuarios, agentes de IA, tarifas vigentes y telemetría histórica.
 * **Dependencias:** Ninguna (Tarea inicial).
 * **Tareas a realizar:**
   1. Crear archivo `docker/docker-compose.yml` con el servicio `postgres:16-alpine`, volumen persistente `postgres_data` y variables de entorno.
   2. Inicializar Prisma en el backend (`npx prisma init`).
-  3. Definir los modelos en `schema.prisma`: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ExecutionLog`, `IngestionBatch`.
+  3. Definir los modelos en `schema.prisma`: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ModelPrice`, `IngestionBatch`, `ExecutionLog`.
   4. Configurar índices en `ExecutionLog` (`executed_at`, `agent_id`, `user_id`, `environment`) y campo `metadata` tipo `Json`.
-  5. Ejecutar migración inicial (`npx prisma migrate dev --name init_schema`).
-  6. Escribir script `prisma/seed.ts` con al menos 2 organizaciones, 4 departamentos, 8 usuarios, 6 agentes y más de 1,000 registros de logs distribuidos en entornos DEV, PRE y PRO.
+  5. Configurar enum unificado de estado en `ExecutionLog`: `SUCCESS`, `ERROR`, `TIMEOUT`, `RATE_LIMIT_EXCEEDED`.
+  6. Ejecutar migración inicial (`npx prisma migrate dev --name init_schema`).
+  7. Escribir script `prisma/seed.ts` con al menos 2 organizaciones, 4 departamentos, 8 usuarios, 6 agentes, tarifas para GPT-4o, Gemini 1.5 Pro y Claude 3.5 Sonnet, y más de 1,000 registros de telemetría distribuidos en entornos DEV, PRE y PRO.
 * **Criterios de Aceptación (Definition of Done):**
   * El comando `docker compose up -d` levanta la base de datos sin errores en el puerto 5432.
-  * El comando `npx prisma db seed` puebla la base de datos con relaciones coherentes e íntegras.
+  * El comando `npx prisma db seed` puebla la base de datos con relaciones coherentes, tarifas activas e integridad referencial demostrable.
 
 ---
 
-### **Ticket 2: Motor de Ingesta, Autenticación y API de Agregación Jerárquica**
+### **Ticket 2: Autenticación, Motor de Ingesta Multipart y API de Métricas Jerárquicas**
 * **ID:** `TCK-002`
 * **Componente:** Backend (Node.js + Express + TypeScript)
 * **Tipo:** Feature Backend
 * **Estimación:** 8 Story Points
 * **Descripción:**
-  Implementar la arquitectura limpia en el backend, incluyendo la autenticación JWT con roles RBAC, el motor de ingesta de ficheros de logs con validación Zod, y los endpoints analíticos que calculan los KPIs globales y la matriz jerárquica agregada (*Org ➔ Dept ➔ User*) con filtros por entorno y fechas.
+  Implementar la arquitectura limpia en el backend, incluyendo la autenticación JWT (`/auth/login`, `/auth/me`), el middleware RBAC (`ADMIN`, `FINOPS_VIEWER`), el motor de ingesta de ficheros de telemetría (JSON/JSONL) con soporte multipart y resolución de identidades (`userEmail` / `agentId`), el cálculo de costes aplicando `ModelPrice` y los endpoints analíticos que calculan los KPIs y la matriz jerárquica agregada.
 * **Dependencias:** `TCK-001`.
 * **Tareas a realizar:**
   1. Configurar servidor Express con middlewares de seguridad (`cors`, `helmet`, `express-rate-limit`).
-  2. Implementar servicio de autenticación con `bcrypt` y firma de tokens `jsonwebtoken`.
+  2. Implementar servicio de autenticación con `bcrypt`, verificación de credenciales y generación de JWT en `POST /api/v1/auth/login` y `GET /api/v1/auth/me`.
   3. Crear middleware `authenticateJWT` y `authorizeRoles`.
-  4. Desarrollar `IngestionService` con parser de logs, validación Zod y cálculo automático de costes según precios por millón de tokens para OpenAI y Gemini.
-  5. Desarrollar `MetricsService` con consultas SQL / Prisma optimizadas que agreguen tokens, costes y ejecuciones agrupadas jerárquicamente.
-  6. Exponer y testear los endpoints:
-     * `POST /api/v1/auth/login`
-     * `POST /api/v1/ingestion/logs`
-     * `GET /api/v1/metrics/dashboard`
-     * `GET /api/v1/agents/:agentId/executions`
-  7. Escribir tests unitarios y de integración con Vitest y Supertest.
+  4. Desarrollar `IngestionService` con parser de ficheros JSON/JSONL (usando Multer para multipart/form-data), validación Zod, mapeo automático de usuario/agente y cálculo matemático de costes según `ModelPrice`.
+  5. Desarrollar `MetricsService` con consultas SQL / Prisma optimizadas que agreguen tokens, costes y ejecuciones agrupadas jerárquicamente (*Org ➔ Dept ➔ User*).
+  6. Desarrollar `AgentService` y exponer endpoints:
+     * `GET /api/v1/agents/:agentId` (Ficha técnica y métricas agregadas).
+     * `GET /api/v1/agents/:agentId/executions` (Listado paginado de llamadas filtrable por entorno y estado).
+  7. Escribir tests unitarios con Vitest para el motor de cálculo y tests de integración con Supertest.
 * **Criterios de Aceptación (Definition of Done):**
   * Cobertura de tests en la capa de servicios > 80%.
-  * Endpoints documentados y conformes a la especificación OpenAPI 3.0.
+  * Todos los endpoints responden conforme al contrato OpenAPI 3.0 documentado.
 
 ---
 
-### **Ticket 3: Dashboard Ejecutivo con KPIs y Tabla Interactiva Drill-Down**
+### **Ticket 3: Dashboard Ejecutivo, Login, Tabla Drill-Down y Detalle de Agente**
 * **ID:** `TCK-003`
 * **Componente:** Frontend (React + Vite + TypeScript)
 * **Tipo:** Feature Frontend
 * **Estimación:** 8 Story Points
 * **Descripción:**
-  Construir la interfaz de usuario en React con TailwindCSS, creando el panel superior de KPIs globales interactivos, la tabla colapsable multinivel (*Organización ➔ Departamento ➔ Usuario*) con sumatorios en cascada, la barra de filtros por entorno (DEV/PRE/PRO) y fechas, y el modal de ingesta de logs.
+  Construir la interfaz de usuario en React con TailwindCSS, creando la pantalla de inicio de sesión con JWT, el panel superior de KPIs ejecutivos, la tabla interactiva colapsable (*Organización ➔ Departamento ➔ Usuario*) con sumatorios en cascada, la barra de filtros de entorno (DEV/PRE/PRO), el modal de subida de ficheros de telemetría y la vista de detalle de agente (`AgentDetailView`).
 * **Dependencias:** `TCK-002`.
 * **Tareas a realizar:**
   1. Inicializar proyecto React con Vite, TypeScript, TailwindCSS y Lucide Icons.
-  2. Implementar cliente API con Axios y gestión de estado con React Query / Zustand.
+  2. Implementar cliente API con Axios, interceptor de token JWT y vista `LoginPage`.
   3. Crear componente `KpiCard` y gráficos de distribución de modelos con Recharts.
-  4. Desarrollar el componente `DrillDownTable` con soporte para expandir/colapsar filas jerárquicas y cálculo reactivo de sumatorios.
-  5. Implementar selector de entorno (`DEV`, `PRE`, `PRO`, `TODOS`) y selector de rango temporal con actualización reactiva.
-  6. Construir vistas de detalle (`AgentDetailView` y `UserTraceabilityView`).
-  7. Crear componente `LogUploadModal` con soporte drag-and-drop para subir ficheros de telemetría.
+  4. Desarrollar el componente `DrillDownTable` con soporte para expandir/colapsar filas jerárquicas y cálculo reactivo de sumatorios en cascada.
+  5. Implementar selector de entorno (`DEV`, `PRE`, `PRO`, `TODOS`) y selector de fechas con recálculo dinámico.
+  6. Construir la vista de detalle de agente (`AgentDetailView`) con histórico paginado de ejecuciones y filtros por estado de llamada.
+  7. Crear componente `LogUploadModal` con soporte drag-and-drop para subir ficheros `.json`/`.jsonl` mediante multipart.
 * **Criterios de Aceptación (Definition of Done):**
   * La interfaz es 100% responsiva y accesible.
-  * El despliegue de acordeón es instantáneo y los sumatorios coinciden matemáticamente en todos los niveles.
+  * El despliegue de acordeón es fluido y los sumatorios coinciden matemáticamente en todos los niveles.
 
 ---
 
-## 7. Pull Requests
+## 7. Plan de Pull Requests Previstas (Roadmap de Entregas)
 
-### **Pull Request 1**
-* **Título:** `feat(infra): setup docker-compose, prisma schema, migrations and realistic seeders`
+> **Nota de transparencia metodológica:** La siguiente planificación describe la hoja de ruta de Pull Requests prevista para las fases de implementación (Entregas 2 y 3). Los criterios de validación representan las condiciones de aceptación que deberán ser verificadas y rellenadas con los enlaces y métricas reales al completar el código.
+
+### **Pull Request 1 (Prevista)**
+* **Título:** `feat(infra): setup docker-compose, prisma schema with model-pricing and realistic seeders`
 * **Rama Origen:** `feature/db-docker-prisma-setup` ➔ **Rama Destino:** `develop`
-* **Descripción de cambios:**
-  * Añadida configuración de `docker/docker-compose.yml` para servicio PostgreSQL 16 persistente.
-  * Definido el esquema `schema.prisma` con modelos: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ExecutionLog`, `IngestionBatch`.
-  * Índices de alto rendimiento creados para consultas de series temporales en `ExecutionLog`.
-  * Implementado script `seed.ts` con datos de prueba estructurados para demostración.
-* **Validación realizada:**
-  * `docker compose up -d` verificado en macOS / Linux.
-  * `npx prisma migrate dev` ejecutado limpiamente.
-  * Seed verificado mediante consultas SQL de comprobación.
+* **Estado:** Planificada (Entrega 2)
+* **Alcance de cambios previstos:**
+  * Configuración de `docker/docker-compose.yml` para servicio PostgreSQL 16 persistente.
+  * Definición en `schema.prisma` de los modelos: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ModelPrice`, `IngestionBatch`, `ExecutionLog`.
+  * Índices de alto rendimiento para series temporales y enum unificado de estados de ejecución.
+  * Implementación de script `seed.ts` con datos realistas para simular consumo corporativo.
+* **Criterios de Validación Previstos:**
+  * Verificación de arranque limpio con `docker compose up -d`.
+  * Ejecución exitosa de migraciones Prisma y poblado de base de datos con `npx prisma db seed`.
 
 ---
 
-### **Pull Request 2**
-* **Título:** `feat(backend): implement clean architecture, ingestion pipeline, JWT/RBAC auth & aggregation API`
+### **Pull Request 2 (Prevista)**
+* **Título:** `feat(backend): implement clean architecture, JWT auth, multipart ingestion & metrics API`
 * **Rama Origen:** `feature/backend-core-api` ➔ **Rama Destino:** `develop`
-* **Descripción de cambios:**
-  * Estructurada la arquitectura en capas: controladores, servicios, repositorios y middlewares.
-  * Implementado sistema de autenticación JWT y control de acceso basado en roles (RBAC).
-  * Añadido pipeline de ingesta (`POST /api/v1/ingestion/logs`) con validación Zod y cálculo dinámico de costes de tokens.
-  * Desarrollado motor analítico (`GET /api/v1/metrics/dashboard`) con agregaciones en cascada por Organización, Departamento, Usuario y Entorno.
-  * Suite de tests unitarios y de integración con Vitest y Supertest.
-* **Validación realizada:**
-  * 100% de tests unitarios y de integración pasando en verde.
-  * Validación de contratos OpenAPI 3.0 con Swagger.
+* **Estado:** Planificada (Entrega 2)
+* **Alcance de cambios previstos:**
+  * Estructura en capas limpias: controladores, servicios, repositorios y middlewares.
+  * Autenticación JWT (`/auth/login`, `/auth/me`) y middleware RBAC (`ADMIN`, `FINOPS_VIEWER`).
+  * Pipeline de ingesta multipart (`POST /api/v1/ingestion/logs`) con validación Zod, mapeo de `userEmail`/`agentId` y cálculo financiero con `ModelPrice`.
+  * Motor de agregación (`GET /api/v1/metrics/dashboard`) con sumatorios en cascada por Organización, Departamento, Usuario y Entorno.
+  * Endpoints de detalle de agente (`GET /api/v1/agents/:agentId` y `/executions`).
+* **Criterios de Validación Previstos:**
+  * Tests unitarios del motor de cálculo de costes y agregación con Vitest superando el 80% de cobertura.
+  * Tests de integración de endpoints con Supertest contra base de datos de test.
+  * Validación estricta contra el contrato OpenAPI 3.0.
 
 ---
 
-### **Pull Request 3**
-* **Título:** `feat(frontend): build executive dashboard, dynamic drill-down table, environment filters & detail views`
+### **Pull Request 3 (Prevista)**
+* **Título:** `feat(frontend): build executive dashboard, dynamic drill-down table, agent detail view & log modal`
 * **Rama Origen:** `feature/frontend-dashboard-drilldown` ➔ **Rama Destino:** `main`
-* **Descripción de cambios:**
-  * Creado el panel superior de KPIs ejecutivos con métricas de 90 días (tokens, costes, agentes, mix de modelos).
-  * Construida la tabla jerárquica interactiva colapsable (*Org ➔ Dept ➔ User*) con sumatorios en cascada.
-  * Añadida barra de navegación con filtros en tiempo real por entorno (**DEV**, **PRE**, **PRO**) y rango de fechas.
-  * Implementadas vistas de detalle para auditoría de agentes y trazabilidad de ejecuciones por usuario.
-  * Añadido modal drag-and-drop para ingesta de archivos de logs.
-* **Validación realizada:**
-  * Tests E2E con Playwright simulando login, despliegue del árbol jerárquico y filtrado de entornos.
-  * Verificación de diseño responsive y rendimiento en Lighthouse (> 90).
+* **Estado:** Planificada (Entrega 3)
+* **Alcance de cambios previstos:**
+  * Pantalla de Login con gestión de estado de autenticación JWT.
+  * Panel superior de KPIs ejecutivos a 90 días (tokens, costes, agentes activos, SLA).
+  * Tabla interactiva colapsable (*Org ➔ Dept ➔ User*) con sumatorios en cascada.
+  * Filtros en tiempo real por entorno (**DEV**, **PRE**, **PRO**, **TODOS**) y fechas.
+  * Vista de detalle de agente (`AgentDetailView`) con trazabilidad cronológica de llamadas.
+  * Modal drag-and-drop para ingesta de ficheros de telemetría JSON/JSONL.
+* **Criterios de Validación Previstos:**
+  * Tests End-to-End con Playwright simulando el camino feliz: Login ➔ Navegación por tabla jerárquica ➔ Filtro por entorno ➔ Detalle de agente.
+  * Auditoría de rendimiento y accesibilidad con Lighthouse en entorno de staging.
