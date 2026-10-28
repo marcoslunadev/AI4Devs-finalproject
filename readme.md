@@ -91,8 +91,9 @@ Para garantizar la viabilidad y máxima robustez en el tiempo de entrega del má
 #### **1.2.2. Roadmap y Funcionalidades para Versión 2 (Post-MVP):**
 * Ingesta de ficheros en formato plano `CSV`.
 * Ampliación del modelo RBAC a 4 roles (`SUPER_ADMIN` multi-tenant y `AUDITOR` de cumplimiento normativo).
+* Integración de webhooks con gestores externos de incidencias y ticketing (Jira / Slack / PagerDuty).
 * Vistas de detalle dedicadas e independientes para Organización y Departamento (en MVP se exploran dentro de la jerarquía drill-down).
-* Alertas automáticas de desviación presupuestaria y conector en streaming directo con proxies empresariales (Cloudflare AI Gateway / LiteLLM).
+* Conector en streaming directo con proxies empresariales (Cloudflare AI Gateway / LiteLLM).
 
 ---
 
