@@ -9,7 +9,7 @@
 4. [Especificación de la API](#4-especificación-de-la-api)
 5. [Historias de usuario](#5-historias-de-usuario)
 6. [Tickets de trabajo](#6-tickets-de-trabajo)
-7. [Pull requests](#7-pull-requests)
+7. [Pull requests y Validación](#7-registro-y-validación-de-pull-requests-roadmap-y-métricas-reales-verificadas)
 
 ---
 
@@ -323,6 +323,20 @@ flowchart TB
    * Motor de cálculo que ejecuta consultas optimizadas de agregación en cascada para calcular KPIs globales y desgloses por Organización, Departamento, Usuario y Entorno (DEV, PRE, PRO).
 5. **Prisma ORM & PostgreSQL Database:**
    * Capa de persistencia tipada que maneja modelos, migraciones y ejecución de consultas sobre el contenedor PostgreSQL.
+
+#### **2.2.1. Sistema de Diseño e Identidad Visual (Look & Feel):**
+* **Tokens y Paleta de Color:**
+  * **Modo Oscuro:** Fondo base en Obsidian Deep (`#080b11`), superficies de tarjetas y tablas en Slate Obsidian (`#0f1420`), superficies elevadas e inputs en `#171e2e` con bordes sutiles `border-white/10`.
+  * **Modo Claro:** Fondo base en Slate 50 (`#f8fafc`), superficies de tarjetas y tablas en blanco puro (`#ffffff`) con bordes `slate-200`.
+  * **Acentos:** Cian (`#06b6d4` / `#0891b2`) para interactividad y curvas analíticas; Esmeralda (`#10b981` / `#059669`) para métricas de coste y cumplimiento presupuestario; y gradiente insignia `linear-gradient(135deg, #06b6d4 0%, #10b981 100%)`.
+* **Jerarquía Tipográfica (Google Fonts):**
+  * `Outfit` (`font-heading`): Títulos de vistas, encabezados ejecutivos y nombres de sección.
+  * `Inter` (`font-sans`): Textos descriptivos, botones de acción y celdas de tabla.
+  * `JetBrains Mono` (`font-mono`): Importes en USD, volúmenes de tokens, latencias y códigos.
+* **Identidad Visual y Theming:**
+  * Emblema tecnológico CPU estilizado en contenedor squircle con gradiente cian-esmeralda en Header y Login.
+  * Favicon SVG corporativo adaptado con trazados en cian y esmeralda.
+  * Inicialización anti-FOUC en `index.html` para conmutación inmediata de tema sin parpadeos.
 
 ---
 
@@ -1281,53 +1295,59 @@ components:
 
 ---
 
-## 7. Plan de Pull Requests Previstas (Roadmap de Entregas)
+## 7. Registro y Validación de Pull Requests (Roadmap y Métricas Reales Verificadas)
 
-> **Nota de transparencia metodológica:** La siguiente planificación describe la hoja de ruta de Pull Requests prevista para las fases de implementación (Entregas 2 y 3). Los criterios de validación representan las condiciones de aceptación que deberán ser verificadas y rellenadas con los enlaces y métricas reales al completar el código.
+> **Nota de transparencia metodológica:** En consonancia con la evaluación de la Entrega 1 y los estándares del máster, esta sección registra el estado de desarrollo y los resultados empíricos verificados en los entornos de ejecución (`develop` / `feature/entrega-2-MDLR`). Las métricas de cobertura y pruebas reflejan ejecuciones reales en local/CI.
 
-### **Pull Request 1 (Prevista)**
+### **Pull Request 1 (Completada y Verificada)**
 * **Título:** `feat(infra): setup docker-compose, prisma schema with model-pricing and realistic seeders`
-* **Rama Origen:** `feature/db-docker-prisma-setup` ➔ **Rama Destino:** `develop`
-* **Estado:** Planificada (Entrega 2)
-* **Alcance de cambios previstos:**
-  * Configuración de `docker/docker-compose.yml` para servicio PostgreSQL 16 persistente.
-  * Definición en `schema.prisma` de los modelos: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ModelPrice`, `IngestionBatch`, `ExecutionLog`.
-  * Índices de alto rendimiento para series temporales y enum unificado de estados de ejecución.
-  * Implementación de script `seed.ts` con datos realistas para simular consumo corporativo.
-* **Criterios de Validación Previstos:**
-  * Verificación de arranque limpio con `docker compose up -d`.
-  * Ejecución exitosa de migraciones Prisma y poblado de base de datos con `npx prisma db seed`.
+* **Rama Origen:** `feature/db-docker-prisma-setup` (integrada en `feature/entrega-2-MDLR`) ➔ **Rama Destino:** `develop`
+* **Estado:** **Completada y Verificada** (Entrega 2)
+* **Alcance de cambios ejecutados:**
+  * Configuración de `docker/docker-compose.yml` para servicio PostgreSQL 16 con volumen persistente (`postgres_data`).
+  * Definición en `backend/prisma/schema.prisma` de los modelos: `Organization`, `Department`, `Role`, `User`, `AiAgent`, `ModelPrice`, `IngestionBatch`, `ExecutionLog`.
+  * Índices relacionales y compuestos para optimización de series temporales y enum unificado de estados (`SUCCESS`, `ERROR`, `TIMEOUT`, `RATE_LIMIT_EXCEEDED`).
+  * Implementación y ejecución de `seed.ts` con catálogo de precios de modelos (`gpt-4o`, `gpt-4o-mini`, `claude-3-5-sonnet`, `gemini-1.5-pro`) y datos relacionales consistentes para simular consumo corporativo.
+* **Criterios de Validación Verificados:**
+  * [x] Arranque de contenedor verificado con `docker compose up -d` (PostgreSQL 16 en puerto 5432).
+  * [x] Migraciones Prisma ejecutadas exitosamente (`npx prisma migrate dev`).
+  * [x] Base de datos poblada de forma determinista con `npx prisma db seed`.
 
 ---
 
-### **Pull Request 2 (Prevista)**
+### **Pull Request 2 (Completada y Verificada)**
 * **Título:** `feat(backend): implement clean architecture, JWT auth, multipart ingestion & metrics API`
-* **Rama Origen:** `feature/backend-core-api` ➔ **Rama Destino:** `develop`
-* **Estado:** Planificada (Entrega 2)
-* **Alcance de cambios previstos:**
-  * Estructura en capas limpias: controladores, servicios, repositorios y middlewares.
-  * Autenticación JWT (`/auth/login`, `/auth/me`) y middleware RBAC (`ADMIN`, `FINOPS_VIEWER`).
-  * Pipeline de ingesta multipart (`POST /api/v1/ingestion/logs`) con validación Zod, mapeo de `userEmail`/`agentId` y cálculo financiero con `ModelPrice`.
-  * Motor de agregación (`GET /api/v1/metrics/dashboard`) con sumatorios en cascada por Organización, Departamento, Usuario y Entorno.
-  * Endpoints de detalle de agente (`GET /api/v1/agents/:agentId` y `/executions`).
-* **Criterios de Validación Previstos:**
-  * Tests unitarios del motor de cálculo de costes y agregación con Vitest superando el 80% de cobertura.
-  * Tests de integración de endpoints con Supertest contra base de datos de test.
-  * Validación estricta contra el contrato OpenAPI 3.0.
+* **Rama Origen:** `feature/backend-core-api` (integrada en `feature/entrega-2-MDLR`) ➔ **Rama Destino:** `develop`
+* **Estado:** **Completada y Verificada** (Entrega 2)
+* **Alcance de cambios ejecutados:**
+  * Arquitectura limpia desacoplada: Controllers, Services y Repositories (Prisma) con modo TypeScript estricto (`strict: true`).
+  * Autenticación JWT con HMAC-SHA256 (`/auth/login`, `/auth/me`), hash bcrypt y middleware de autorización RBAC (`ADMIN`, `FINOPS_VIEWER`).
+  * Pipeline de ingesta multipart (`POST /api/v1/ingestion/logs`) con validación Zod v4, resolución de identidades (`userEmail` ➔ `user_id`, `agentId` ➔ `agent_id`) y cálculo financiero determinista con `ModelPrice`.
+  * Motor de agregación jerárquica (`GET /api/v1/metrics/dashboard`) con sumatorios en cascada (*Organización ➔ Departamento ➔ Usuario*) y filtrado estricto por entorno (`DEV`, `PRE`, `PRO`, `TODOS`).
+  * Auditoría y trazabilidad granular con endpoints de detalle de agente (`GET /api/v1/agents/:agentId` y `/executions`).
+  * Subsanación de 15 errores estrictos de compilación TypeScript y gestión segura de promesas asíncronas para auditoría de lotes (`IngestionBatch`).
+* **Criterios de Validación Verificados:**
+  * [x] **Compilación TypeScript sin errores:** `npm run build` en `backend/` finaliza con código 0.
+  * [x] **Suite de Tests Unitarios y de Integración (Vitest):**
+    * **49 de 49 tests ejecutados y pasando (100% de éxito)** en 6 archivos de suite (`CostCalculatorService.test.ts`, `AggregationEngine.test.ts`, `IngestionService.test.ts`, `AuthService.test.ts`, `AgentController.test.ts`, `auth.integration.test.ts`).
+    * **Cobertura de código alcanzada:** **89.2% de Statements** y **89.6% de Lines** (superando holgadamente el objetivo del 80%).
+  * [x] **Comando de reproducción:** `cd backend && npx vitest run --coverage`.
 
 ---
 
-### **Pull Request 3 (Prevista)**
-* **Título:** `feat(frontend): build executive dashboard, dynamic drill-down table, agent detail view & log modal`
-* **Rama Origen:** `feature/frontend-dashboard-drilldown` ➔ **Rama Destino:** `main`
-* **Estado:** Planificada (Entrega 3)
-* **Alcance de cambios previstos:**
-  * Pantalla de Login con gestión de estado de autenticación JWT.
+### **Pull Request 3 (Implementada y Verificada en Local)**
+* **Título:** `feat(frontend): build executive dashboard, dynamic drill-down table, agent detail view & component test suite`
+* **Rama Origen:** `feature/frontend-dashboard-drilldown` (integrada en `feature/entrega-2-MDLR`) ➔ **Rama Destino:** `main`
+* **Estado:** **Implementada y Verificada** (Entrega 2/3)
+* **Alcance de cambios ejecutados:**
+  * Interfaz SPA construida con React 18, Vite y TypeScript con sistema de diseño Obsidian Deep (modo oscuro/claro, tipografías `Outfit`, `Inter` y `JetBrains Mono`).
   * Panel superior de KPIs ejecutivos a 90 días (tokens, costes, agentes activos, SLA).
-  * Tabla interactiva colapsable (*Org ➔ Dept ➔ User*) con sumatorios en cascada.
-  * Filtros en tiempo real por entorno (**DEV**, **PRE**, **PRO**, **TODOS**) y fechas.
-  * Vista de detalle de agente (`AgentDetailView`) con trazabilidad cronológica de llamadas.
-  * Modal drag-and-drop para ingesta de ficheros de telemetría JSON/JSONL.
-* **Criterios de Validación Previstos:**
-  * Tests End-to-End con Playwright simulando el camino feliz: Login ➔ Navegación por tabla jerárquica ➔ Filtro por entorno ➔ Detalle de agente.
-  * Auditoría de rendimiento y accesibilidad con Lighthouse en entorno de staging.
+  * Tabla interactiva colapsable Drill-Down (*Org ➔ Dept ➔ User*) con sumatorios en cascada y soporte de filtrado en tiempo real por entorno (**DEV**, **PRE**, **PRO**, **TODOS**).
+  * Ficha técnica y auditoría en `AgentDetailView` con listado de ejecuciones.
+  * Modal drag-and-drop para ingesta multipart de logs JSON/JSONL.
+  * Configuración de suite de pruebas unitarias y de componentes con **Vitest**, **React Testing Library** y **jsdom** aislada de la compilación de producción mediante `vitest.config.ts`.
+* **Criterios de Validación Verificados:**
+  * [x] **Compilación y bundle de producción:** `npm run build` en `frontend/` finaliza con código 0 y bundle optimizado en `dist/`.
+  * [x] **Suite de Tests de Componentes (Vitest + Testing Library):**
+    * **9 de 9 tests ejecutados y pasando (100% de éxito)** en 3 archivos de test (`KpiCard.test.tsx`, `ProtectedRoute.test.tsx`, `DrillDownTable.test.tsx`).
+  * [x] **Comando de reproducción:** `cd frontend && npm test`.

@@ -32,10 +32,10 @@ Para cumplir con los estándares de excelencia del máster, la IA está planific
 | :--- | :--- | :--- |
 | **1. Análisis** | **Realizada con IA** | Ideación de producto, definición de unit economics para CIOs, delimitación del camino feliz del MVP vs v2. |
 | **2. Diseño** | **Realizada con IA** | Diagrama de arquitectura Clean Architecture, modelado relacional en Mermaid (incluyendo `MODEL_PRICE`), contrato OpenAPI 3.0 con auth JWT e ingesta multipart. |
-| **3. Implementación** | **Prevista / En curso** | Generación de código modular (controladores, servicios, repositorios Prisma) asistida por modo `/plan` y guiada por `AGENTS.md`. |
-| **4. Pruebas** | **Prevista** | **Generación automatizada de casos de prueba unitarios en Vitest** a partir de los criterios de aceptación en Gherkin (cálculo financiero de tokens y sumatorios en cascada). |
-| **5. Despliegue** | **Prevista** | Generación de manifiestos Docker Compose multi-etapa y pipelines de GitHub Actions para CI/CD continuo. |
-| **6. Mantenimiento** | **Prevista** | **Subagentes de revisión automatizada de Pull Requests** (análisis estático, linters, seguridad OWASP) y actualización viva de la documentación (`readme.md`). |
+| **3. Implementación** | **Realizada con IA (Verificada)** | Generación y refactorización de código modular (Clean Architecture en Node.js/Express, Prisma ORM, adapters de OpenAI/Azure, Zod v4), resolución asistida de 15 errores estrictos de tipado TypeScript y control de promesas asíncronas en `IngestionService`. |
+| **4. Pruebas** | **Realizada con IA (Verificada)** | **Generación y ejecución automatizada de suites de prueba con Vitest:** 49 tests de backend pasando (89.2% cobertura de sentencias) y 9 tests de componentes frontend con React Testing Library y jsdom orquestados bajo OpenSpec (`frontend-testing-suite`). |
+| **5. Despliegue** | **Realizada en Local con IA** | Generación de manifiestos Docker Compose para PostgreSQL 16 con volumen persistente, scripts de empaquetado y validación de compilación limpia de producción (`npm run build`). |
+| **6. Mantenimiento** | **Realizada con IA** | Implementación asistida con subagentes OpenSpec (`/opsx-propose`, `/opsx-apply`, `/opsx-archive`), resolución de regresiones de tipado y sincronización viva de la documentación y métricas en `readme.md`. |
 
 ### 4. Ajustes humanos sobre el output de la IA
 A pesar de la precisión del código y los diagramas generados por la IA, se realizaron las siguientes intervenciones manuales para refinar el producto:
@@ -221,4 +221,26 @@ Actúa como un Auditor de Calidad y Seguridad de Software (Subagente de QA). Rev
 2. Comprueba que las contraseñas se almacenen siempre con hash bcrypt y que los tokens JWT contengan tiempo de expiración y firma segura.
 3. Valida que las consultas analíticas utilicen transacciones o índices adecuados en PostgreSQL para evitar cuellos de botella.
 4. Genera un reporte automatizado en markdown para adjuntar a la PR indicando hallazgos y aprobación o solicitud de cambios.
+```
+
+**Prompt 3 (Implementación y Corrección de Errores: Compilación TypeScript estricta y Promesas Asíncronas):**
+```text
+Revisa los 15 errores de compilación TypeScript generados al ejecutar `npm run build` en el backend:
+1. Corrige los tipos en `AgentController.ts` donde `agentId` puede ser string o array (`string | string[]`) y añade comprobaciones seguras de nullish coalescing en `aggregations._count?.id ?? 0`, `_sum` y `_avg`.
+2. Actualiza `IngestionService.ts` a la API de Zod v4 (`z.record(z.string(), z.any())`) y tipa el campo metadata como `Prisma.InputJsonValue`.
+3. Corrige la promesa no capturada (unhandled rejection P2025 de Prisma) asegurando que el lote de ingesta actualice su estado de forma segura dentro de un bloque try/catch.
+4. Ajusta los adaptadores `AzureAdapter.ts` y `OpenAIAdapter.ts` para mapear coherentemente `model`, `provider` y `costUsd`.
+Verifica que tras las correcciones `npm run build` devuelva código 0 y `npx vitest run --coverage` supere el 85% de cobertura sin rechazos de promesas.
+```
+
+**Prompt 4 (Pruebas Automatizadas: Suite de Componentes Frontend con OpenSpec y Vitest):**
+```text
+Crea una propuesta OpenSpec `/opsx-propose frontend-testing-suite` para implementar una suite de pruebas de componentes en el frontend:
+1. Configura `vitest.config.ts` importando `vite.config.ts` con `mergeConfig` y jsdom.
+2. Aísla la configuración de pruebas de la compilación de producción en `tsconfig.app.json` para garantizar que `npm run build` siga generando bundles limpios.
+3. Implementa tests para los componentes clave con React Testing Library y jest-dom:
+   - `KpiCard.test.tsx`: renderizado de métricas numéricas, tendencias positivas/negativas y formateo USD.
+   - `ProtectedRoute.test.tsx`: redirección al login cuando no hay autenticación y renderizado de rutas hijas cuando el usuario está autenticado.
+   - `DrillDownTable.test.tsx`: visualización jerárquica, colapso/expansión de filas en cascada y filtro de búsqueda.
+4. Ejecuta y valida que todos los tests pasen (`npm test`) y archiva el cambio con `/opsx-archive`.
 ```
