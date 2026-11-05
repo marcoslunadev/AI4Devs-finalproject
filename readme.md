@@ -24,11 +24,35 @@ AIFinOps
 ### **0.3. Descripción breve del proyecto:**
 AIFinOps es una plataforma integral de observabilidad, gobernanza y FinOps de Inteligencia Artificial diseñada para monitorizar, auditar y optimizar el consumo de modelos y agentes de IA (OpenAI, Google Gemini, Anthropic, etc.) a nivel de organizaciones, departamentos y usuarios, ofreciendo visibilidad multidimensional filtrable por entornos (DEV, PRE y PRO).
 
-### **0.4. URL del proyecto:**
-*Pendiente de despliegue en Entrega 3
+### **0.4. Evidencia de funcionamiento y URLs de Despliegue:**
+* **Frontend SPA (Vercel CDN):** [https://aifinops-frontend.vercel.app](https://aifinops-frontend.vercel.app) *(o despliegue local verificado)*
+* **Backend API REST (Render):** [https://aifinops-backend.onrender.com/api/v1](https://aifinops-backend.onrender.com/api/v1) *(Nota: en plan gratuito el backend entra en reposo y puede tardar ~30s en reactivarse en la primera petición)*
+* **Base de datos Cloud:** PostgreSQL 16 alojada en Neon Serverless.
 
-### **0.5. URL o archivo comprimido del repositorio:**
-Repositorio Git del proyecto: `https://github.com/marcoslunadev/AI4Devs-finalproject`
+### **0.5. URL del Repositorio de Entrega:**
+* **Repositorio de Código y Documentación:** `https://github.com/marcoslunadev/AI4Devs-finalproject-aifinops`
+* **Rama Definitiva de Entrega:** `final-project-MDLR`
+
+### **0.6. Credenciales de Prueba (Demo / Test Credentials):**
+Para acceder a la plataforma tanto en la versión desplegada como en local, utiliza las siguientes cuentas sembradas de forma determinista:
+
+| Rol de Acceso | Email / Login | Contraseña | Capacidades y Permisos |
+| :--- | :--- | :--- | :--- |
+| **Administrador (`ADMIN`)** | `admin@aifinops.com` *(o usuario `admin`)* | `Admin_M4rc0s` | Acceso completo: KPIs ejecutivos, filtros DEV/PRE/PRO, detalle de agentes y **subida/ingesta multipart de archivos de telemetría**. |
+| **Visor FinOps (`FINOPS_VIEWER`)** | `viewer@aifinops.com` *(o usuario `viewer`)* | `Viewer_M4rc0s` | Acceso de auditoría: Dashboard de métricas a 90 días, matriz colapsable Drill-Down (*Org ➔ Dept ➔ User*) y ficha técnica de agente. |
+
+### **0.7. Verificación de la Suite de Tests Automatizados (62 Tests Pasando - 100% Éxito):**
+El proyecto cuenta con una batería integral de 62 pruebas que cubren cálculo financiero determinista, agregaciones relacionales, contratos HTTP y el flujo completo de navegación e interactividad del frontend:
+
+```bash
+# Ejecutar toda la batería de tests (Backend + Frontend) desde la raíz:
+npm test
+
+# O ejecutar por componente:
+npm run test:backend   # 49 tests (unitarios + integración HTTP con Supertest)
+npm run test:frontend  # 13 tests (componentes, rutas protegidas y Happy Path E2E)
+```
+
 
 ---
 
@@ -175,53 +199,69 @@ El proyecto está diseñado para levantarse localmente de forma rápida y reprod
 
 #### **Paso 1: Clonar el repositorio**
 ```bash
-git clone https://github.com/marcoslunadev/AI4Devs-finalproject.git
-cd AI4Devs-finalproject
+git clone https://github.com/marcoslunadev/AI4Devs-finalproject-aifinops.git
+cd AI4Devs-finalproject-aifinops
 ```
 
 #### **Paso 2: Configurar las variables de entorno**
-Copiar el archivo de ejemplo para backend y frontend:
+Copiar el archivo de ejemplo para la raíz, backend y frontend:
 ```bash
-# En la raíz o carpeta backend
 cp .env.example .env
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
 ```
-Contenido básico de `.env`:
+Contenido configurado en `.env`:
 ```env
 PORT=3000
 NODE_ENV=development
-DATABASE_URL="postgresql://aifinops_user:aifinops_pass@localhost:5432/aifinops_db?schema=public"
-JWT_SECRET="super_secret_jwt_key_aifinops_2026"
-CORS_ORIGIN="http://localhost:5173"
+DATABASE_URL="postgresql://aifinops:password@localhost:5432/aifinops_db?schema=public"
+JWT_SECRET="super_secret_jwt_key_aifinops_master_2026"
+VITE_API_URL="http://localhost:3000/api/v1"
 ```
 
 #### **Paso 3: Levantar la base de datos PostgreSQL con Docker Compose**
 ```bash
 docker compose up -d
 ```
-> Esto levantará un contenedor de **PostgreSQL 16** en el puerto `5432` con volumen persistente (`postgres_data`) y panel de administración en el puerto `8080`.
+> Esto levantará un contenedor de **PostgreSQL 16** en el puerto `5432` con volumen persistente (`pgdata`).
 
 #### **Paso 4: Instalar dependencias y ejecutar migraciones de BBDD**
 ```bash
-# Instalación de dependencias
-npm install
+# 1. Instalar dependencias en backend y frontend
+cd backend && npm install
+cd ../frontend && npm install
+cd ..
 
-# Generar cliente de Prisma y aplicar migraciones
+# 2. Generar cliente de Prisma y aplicar migraciones
+cd backend
 npx prisma migrate dev --name init
 
-# Poblar la base de datos con datos semilla (organizaciones, departamentos, usuarios, catálogo de agentes, tarifas de modelos y telemetría de ejemplo)
+# 3. Poblar la base de datos con datos semilla (organizaciones, departamentos, usuarios, agentes, tarifas ModelPrice y 700 logs a 90 días)
 npx prisma db seed
+cd ..
 ```
 
-#### **Paso 5: Iniciar los servidores de desarrollo**
+#### **Paso 5: Ejecutar la Suite de Tests Automatizados (58 Tests)**
 ```bash
-# En terminal 1 (Backend - Express API):
-npm run dev:backend
-# Servidor disponible en: http://localhost:3000
+# Ejecutar todos los tests (backend + frontend) desde la raíz:
+npm test
 
-# En terminal 2 (Frontend - React + Vite):
-npm run dev:frontend
-# Aplicación web disponible en: http://localhost:5173
+# O individualmente:
+npm run test:backend   # 49 tests de backend (unitarios + integración HTTP con Supertest)
+npm run test:frontend  # 9 tests de frontend (componentes y navegación con Vitest)
 ```
+
+#### **Paso 6: Iniciar los servidores de desarrollo**
+Puedes arrancarlos desde la raíz con los scripts unificados o en terminales separadas:
+
+* **Desde la raíz:**
+  * Terminal 1 (Backend): `npm run dev:backend` (en `http://localhost:3000`)
+  * Terminal 2 (Frontend): `npm run dev:frontend` (en `http://localhost:5173`)
+
+* **O accediendo a cada directorio:**
+  * Terminal 1: `cd backend && npm run dev`
+  * Terminal 2: `cd frontend && npm run dev`
+
 
 ---
 
@@ -1348,6 +1388,7 @@ components:
   * Configuración de suite de pruebas unitarias y de componentes con **Vitest**, **React Testing Library** y **jsdom** aislada de la compilación de producción mediante `vitest.config.ts`.
 * **Criterios de Validación Verificados:**
   * [x] **Compilación y bundle de producción:** `npm run build` en `frontend/` finaliza con código 0 y bundle optimizado en `dist/`.
-  * [x] **Suite de Tests de Componentes (Vitest + Testing Library):**
-    * **9 de 9 tests ejecutados y pasando (100% de éxito)** en 3 archivos de test (`KpiCard.test.tsx`, `ProtectedRoute.test.tsx`, `DrillDownTable.test.tsx`).
-  * [x] **Comando de reproducción:** `cd frontend && npm test`.
+  * [x] **Suite de Tests de Componentes y Flujo E2E (Vitest + Testing Library):**
+    * **13 de 13 tests ejecutados y pasando (100% de éxito)** en 4 archivos de suite (`KpiCard.test.tsx`, `ProtectedRoute.test.tsx`, `DrillDownTable.test.tsx`, `HappyPathFlow.test.tsx`).
+  * [x] **Comando de reproducción:** `npm test` o `cd frontend && npm test`.
+
